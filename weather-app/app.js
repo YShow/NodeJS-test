@@ -4,7 +4,14 @@ const url = "https://samples.openweathermap.org/data/2.5/weather?q=London,uk&app
 
 request({url: url, json: true}, (error,response) => {
 
-	const longitude = response.body.coord.lon;
-	const latitude = response.body.coord.lat;
-	console.log(latitude, longitude);
+	if(error) {
+		console.log("Não foi possivel se conectar ao serviço de tempo \n" + error);
+	} else if(response.body.error) {
+		console.log("Não foi possivel obter a localização");
+	} else {
+		const longitude = response.body.coord.lon;
+		const latitude = response.body.coord.lat;
+		console.log(latitude, longitude);
+	}
+	
 })
